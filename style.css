@@ -753,9 +753,6 @@ footer::before {
   font-size: 1.2em;
   margin: 0;
   text-shadow: 0 0 5px cyan;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
 }
 
 .menu-toggle {
@@ -866,10 +863,6 @@ body.menu-open {
   header {
     margin-top: 60px;
     padding: 40px 20px;
-  }
-  
-  .toggle-btn {
-    display: none; /* Hide desktop theme toggle on mobile */
   }
   
   nav {
@@ -1118,30 +1111,18 @@ body.menu-open {
   height: 100%;
   top: 0;
   left: 0;
-  z-index: -1;
 }
 
 .glow::before {
   left: 2px;
   text-shadow: -1px 0 #00ffff;
   animation: glitch-1 2s infinite linear alternate-reverse;
-  opacity: 0.7;
 }
 
 .glow::after {
   left: -2px;
   text-shadow: 2px 0 #ff00ff;
   animation: glitch-2 3s infinite linear alternate-reverse;
-  opacity: 0.7;
-}
-
-@media (max-width: 768px) {
-  /* Reduce glitch effect on mobile to prevent visual issues */
-  .glow::before,
-  .glow::after {
-    animation-duration: 4s;
-    opacity: 0.5;
-  }
 }
 
 @keyframes glitch-1 {

@@ -306,16 +306,10 @@ document.addEventListener('DOMContentLoaded', () => {
                 .then(response => {
                     if (!response.ok) {
                         return response.text().then(text => {
-                            throw new Error(`Server responded with status: ${response.status}. Response: ${text || 'No response body'}`);
-                        }).catch(error => {
-                            throw new Error(`Server responded with status: ${response.status}. Failed to parse response.`);
+                            throw new Error(`Server responded with status: ${response.status}. Response: ${text}`);
                         });
                     }
-                    try {
-                        return response.json();
-                    } catch (e) {
-                        throw new Error('Failed to parse server response as JSON');
-                    }
+                    return response.json();
                 })
                 .then(data => {
                     if (data.success) {

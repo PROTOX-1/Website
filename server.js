@@ -37,11 +37,6 @@ const transporter = nodemailer.createTransport({
 // API endpoint for form submission
 app.post('/send-email', (req, res) => {
   try {
-    // Check if request body exists
-    if (!req.body) {
-      return res.status(400).json({ success: false, message: 'Missing request body' });
-    }
-    
     const { name, email, message } = req.body;
     
     // Enhanced validation
