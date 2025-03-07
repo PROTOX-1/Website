@@ -239,7 +239,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 button.disabled = true;
                 
                 // Send data to server
-                fetch('/send-email', {
+                fetch('http://0.0.0.0:8080/send-email', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
@@ -248,7 +248,9 @@ document.addEventListener('DOMContentLoaded', () => {
                 })
                 .then(response => {
                     if (!response.ok) {
-                        throw new Error(`Server responded with status: ${response.status}`);
+                        return response.text().then(text => {
+                            throw new Error(`Server responded with status: ${response.status}. Response: ${text}`);
+                        });
                     }
                     return response.json();
                 })
