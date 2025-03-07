@@ -1,4 +1,67 @@
-html {
-  height: 100%;
-  width: 100%;
+body {
+  font-family: 'Arial', sans-serif;
+  margin: 0;
+  padding: 0;
+  text-align: center;
+  background: linear-gradient(45deg, #0f0f0f, #1a1a1a);
+  color: white;
+  transition: background 0.3s;
+}
+
+header {
+  padding: 20px;
+  background: rgba(0, 0, 0, 0.6);
+  box-shadow: 0 0 10px cyan;
+}
+
+.glow {
+  font-size: 2em;
+  color: cyan;
+  text-shadow: 0 0 15px cyan;
+}
+
+nav {
+  padding: 10px;
+  background: black;
+}
+
+nav a {
+  color: cyan;
+  margin: 10px;
+  text-decoration: none;
+  transition: all 0.3s;
+}
+
+nav a:hover {
+  color: lime;
+  text-shadow: 0 0 10px lime;
+}
+
+.project-card {
+  background: rgba(255, 255, 255, 0.1);
+  padding: 20px;
+  margin: 10px;
+  border-radius: 10px;
+  box-shadow: 0 0 10px cyan;
+  transition: transform 0.3s;
+}
+
+.project-card:hover {
+  transform: scale(1.05);
+  box-shadow: 0 0 15px lime;
+}
+
+.toggle-btn {
+  padding: 10px;
+  border: none;
+  background: cyan;
+  color: black;
+  cursor: pointer;
+  border-radius: 20px;
+  transition: all 0.3s;
+}
+
+.toggle-btn:hover {
+  background: lime;
+  box-shadow: 0 0 10px lime;
 }
