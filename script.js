@@ -239,7 +239,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 button.disabled = true;
                 
                 // Send data to server
-                fetch('http://0.0.0.0:8080/send-email', {
+                fetch('/send-email', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
