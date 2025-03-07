@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -5,45 +6,179 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Pratik Ghanswant - Portfolio</title>
     <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <script defer src="script.js"></script>
 </head>
 <body>
+    <button class="toggle-btn" id="theme-toggle" aria-label="Toggle dark/light mode">
+        <i class="fas fa-moon"></i>
+    </button>
+
     <header>
         <h1 class="glow">Pratik Ghanswant</h1>
-        <p>Cybersecurity Enthusiast | Tech Innovator</p>
-        <button class="toggle-btn" onclick="toggleDarkMode()">🌙</button>
+        <p class="floating">Cybersecurity Enthusiast | Tech Innovator | Problem Solver</p>
     </header>
 
     <nav>
         <a href="#home">Home</a>
+        <a href="#about">About</a>
         <a href="#projects">Projects</a>
+        <a href="#skills">Skills</a>
         <a href="#contact">Contact</a>
     </nav>
 
     <section id="home">
         <h2>Welcome to My Portfolio</h2>
-        <p>I love technology, cybersecurity, and building innovative projects.</p>
+        <p class="floating">I love technology, cybersecurity, and building innovative projects that make a difference.</p>
+        <div class="scroll-indicator">
+            <p>Scroll to explore</p>
+            <i class="fas fa-chevron-down"></i>
+        </div>
+    </section>
+
+    <section id="about">
+        <h2>About Me</h2>
+        <div class="about-container">
+            <div class="about-text">
+                <p>I'm a passionate technologist with a keen interest in cybersecurity and software development. With a background in computer science, I've developed expertise in secure coding practices, network security, and innovative solution design.</p>
+                <p>My journey in tech began when I first discovered the power of coding to solve real-world problems. Since then, I've been on a continuous learning path, exploring new technologies and expanding my skillset.</p>
+                <p>When I'm not coding or researching security vulnerabilities, you might find me participating in CTF competitions, contributing to open-source projects, or mentoring aspiring tech enthusiasts.</p>
+            </div>
+        </div>
     </section>
 
     <section id="projects">
         <h2>My Projects</h2>
-        <div class="project-card">
-            <h3>🤖 Handwritten Robot</h3>
-            <p>A robot that writes like a human.</p>
+        <div class="project-grid">
+            <div class="project-card">
+                <div class="icon">🤖</div>
+                <h3>Handwritten Robot</h3>
+                <p>A robotic system that replicates human handwriting using computer vision and precision mechanics. The robot analyzes handwriting samples and reproduces them with remarkable accuracy.</p>
+                <div class="skills">
+                    <span class="skill-tag">Arduino</span>
+                    <span class="skill-tag">Python</span>
+                    <span class="skill-tag">Computer Vision</span>
+                    <span class="skill-tag">Robotics</span>
+                </div>
+            </div>
+            
+            <div class="project-card">
+                <div class="icon">🌍</div>
+                <h3>Secure Portfolio Site</h3>
+                <p>A responsive portfolio website with enhanced security features including XSS protection, CSRF prevention, and secure authentication. Demonstrates modern web security best practices.</p>
+                <div class="skills">
+                    <span class="skill-tag">HTML/CSS</span>
+                    <span class="skill-tag">JavaScript</span>
+                    <span class="skill-tag">Web Security</span>
+                    <span class="skill-tag">Responsive Design</span>
+                </div>
+            </div>
+            
+            <div class="project-card">
+                <div class="icon">♟</div>
+                <h3>AI Chess Engine</h3>
+                <p>A sophisticated chess game built from scratch with an AI opponent utilizing minimax algorithm with alpha-beta pruning. Features multiple difficulty levels and game analysis tools.</p>
+                <div class="skills">
+                    <span class="skill-tag">Java</span>
+                    <span class="skill-tag">AI Algorithms</span>
+                    <span class="skill-tag">Game Design</span>
+                    <span class="skill-tag">Data Structures</span>
+                </div>
+            </div>
+            
+            <div class="project-card">
+                <div class="icon">🔐</div>
+                <h3>Intrusion Detection System</h3>
+                <p>A network security tool that monitors traffic for suspicious activities and potential threats. Implements machine learning for anomaly detection and real-time alerts.</p>
+                <div class="skills">
+                    <span class="skill-tag">Python</span>
+                    <span class="skill-tag">Machine Learning</span>
+                    <span class="skill-tag">Network Security</span>
+                    <span class="skill-tag">Data Analysis</span>
+                </div>
+            </div>
+            
+            <div class="project-card">
+                <div class="icon">📱</div>
+                <h3>Secure Messaging App</h3>
+                <p>An end-to-end encrypted messaging application with ephemeral messaging capabilities. Features include biometric authentication, message expiration, and secure file sharing.</p>
+                <div class="skills">
+                    <span class="skill-tag">React Native</span>
+                    <span class="skill-tag">Cryptography</span>
+                    <span class="skill-tag">Firebase</span>
+                    <span class="skill-tag">Mobile Development</span>
+                </div>
+            </div>
+            
+            <div class="project-card">
+                <div class="icon">🛡️</div>
+                <h3>Vulnerability Scanner</h3>
+                <p>An automated tool that identifies security vulnerabilities in web applications and networks. Generates comprehensive reports with remediation recommendations.</p>
+                <div class="skills">
+                    <span class="skill-tag">Python</span>
+                    <span class="skill-tag">Penetration Testing</span>
+                    <span class="skill-tag">Network Analysis</span>
+                    <span class="skill-tag">API Security</span>
+                </div>
+            </div>
         </div>
-        <div class="project-card">
-            <h3>🌍 GitHub Website</h3>
-            <p>A website hosted on GitHub showcasing my skills.</p>
-        </div>
-        <div class="project-card">
-            <h3>♟ Chess Game</h3>
-            <p>A strategic chess game built from scratch.</p>
+    </section>
+
+    <section id="skills">
+        <h2>Skills & Expertise</h2>
+        <div class="skills-container">
+            <div class="skill-category">
+                <h3>Programming Languages</h3>
+                <div class="skills-list">
+                    <span class="skill-item">Python</span>
+                    <span class="skill-item">JavaScript</span>
+                    <span class="skill-item">Java</span>
+                    <span class="skill-item">C++</span>
+                    <span class="skill-item">SQL</span>
+                </div>
+            </div>
+            
+            <div class="skill-category">
+                <h3>Security</h3>
+                <div class="skills-list">
+                    <span class="skill-item">Penetration Testing</span>
+                    <span class="skill-item">Network Security</span>
+                    <span class="skill-item">Cryptography</span>
+                    <span class="skill-item">Security Analysis</span>
+                    <span class="skill-item">OSINT</span>
+                </div>
+            </div>
+            
+            <div class="skill-category">
+                <h3>Technologies</h3>
+                <div class="skills-list">
+                    <span class="skill-item">React</span>
+                    <span class="skill-item">Node.js</span>
+                    <span class="skill-item">Docker</span>
+                    <span class="skill-item">AWS</span>
+                    <span class="skill-item">Git</span>
+                </div>
+            </div>
         </div>
     </section>
 
     <section id="contact">
         <h2>Contact Me</h2>
-        <p>Email: pratik@example.com</p>
+        <p>Feel free to reach out for collaborations or just to say hello!</p>
+        
+        <form class="contact-form">
+            <input type="text" placeholder="Your Name" required>
+            <input type="email" placeholder="Your Email" required>
+            <textarea rows="5" placeholder="Your Message" required></textarea>
+            <button type="submit">Send Message</button>
+        </form>
+        
+        <div class="social-links">
+            <a href="#" aria-label="GitHub"><i class="fab fa-github"></i></a>
+            <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
+            <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+            <a href="mailto:pratik@example.com" aria-label="Email"><i class="fas fa-envelope"></i></a>
+        </div>
     </section>
 
     <footer>
