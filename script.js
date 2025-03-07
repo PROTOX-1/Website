@@ -246,12 +246,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     },
                     body: JSON.stringify({ name, email, message }),
                 })
-                .then(response => {
-                    if (!response.ok) {
-                        throw new Error(`Server responded with status: ${response.status}`);
-                    }
-                    return response.json();
-                })
+                .then(response => response.json())
                 .then(data => {
                     if (data.success) {
                         button.innerHTML = '<i class="fas fa-check"></i> Sent!';
@@ -276,7 +271,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     console.error('Error:', error);
                     button.innerHTML = 'Send Message';
                     button.disabled = false;
-                    formStatus.innerHTML = 'Failed to send message: ' + error.message;
+                    formStatus.innerHTML = error.message || 'Failed to send message. Please try again.';
                     formStatus.classList.add('error-message');
                     
                     setTimeout(() => {
