@@ -1,11 +1,42 @@
 
-// Theme toggle functionality
+// Theme toggle and mobile menu functionality
 document.addEventListener('DOMContentLoaded', () => {
-    const themeToggle = document.getElementById('theme-toggle');
+    // Mobile menu functionality
+    const menuToggle = document.getElementById('menu-toggle');
+    const closeMenu = document.getElementById('close-menu');
+    const mainNav = document.getElementById('main-nav');
     const body = document.body;
-    const toggleIcon = themeToggle.querySelector('i');
     
-    // Check for saved theme preference or use the preferred color scheme
+    // Menu toggle
+    if (menuToggle) {
+        menuToggle.addEventListener('click', () => {
+            mainNav.classList.add('open');
+            body.classList.add('menu-open');
+        });
+    }
+    
+    // Close menu
+    if (closeMenu) {
+        closeMenu.addEventListener('click', () => {
+            mainNav.classList.remove('open');
+            body.classList.remove('menu-open');
+        });
+    }
+    
+    // Close menu when clicking on a nav link
+    document.querySelectorAll('#main-nav a').forEach(link => {
+        link.addEventListener('click', () => {
+            mainNav.classList.remove('open');
+            body.classList.remove('menu-open');
+        });
+    });
+    
+    // Theme toggle functionality
+    const themeToggle = document.getElementById('theme-toggle');
+    const themeToggleMobile = document.getElementById('theme-toggle-mobile');
+    const toggleIcon = themeToggle ? themeToggle.querySelector('i') : null;
+    
+    // Apply theme based on storage or system preference
     const savedTheme = localStorage.getItem('theme');
     if (savedTheme === 'light') {
         enableLightMode();
@@ -15,30 +46,56 @@ document.addEventListener('DOMContentLoaded', () => {
         enableLightMode();
     }
     
-    // Theme toggle event listener with animation
-    themeToggle.addEventListener('click', () => {
-        themeToggle.classList.add('clicked');
-        setTimeout(() => {
-            themeToggle.classList.remove('clicked');
-        }, 300);
+    // Sync mobile toggle with current theme
+    if (themeToggleMobile) {
+        themeToggleMobile.checked = body.classList.contains('light-mode');
+    }
+    
+    // Desktop theme toggle
+    if (themeToggle) {
+        themeToggle.addEventListener('click', toggleTheme);
+    }
+    
+    // Mobile theme toggle
+    if (themeToggleMobile) {
+        themeToggleMobile.addEventListener('change', function() {
+            if (this.checked) {
+                enableLightMode();
+                localStorage.setItem('theme', 'light');
+            } else {
+                enableDarkMode();
+                localStorage.setItem('theme', 'dark');
+            }
+        });
+    }
+    
+    function toggleTheme() {
+        if (themeToggle) {
+            themeToggle.classList.add('clicked');
+            setTimeout(() => {
+                themeToggle.classList.remove('clicked');
+            }, 300);
+        }
         
         if (body.classList.contains('light-mode')) {
             enableDarkMode();
             localStorage.setItem('theme', 'dark');
+            if (themeToggleMobile) themeToggleMobile.checked = false;
         } else {
             enableLightMode();
             localStorage.setItem('theme', 'light');
+            if (themeToggleMobile) themeToggleMobile.checked = true;
         }
-    });
+    }
     
     function enableLightMode() {
         body.classList.add('light-mode');
-        toggleIcon.className = 'fas fa-sun';
+        if (toggleIcon) toggleIcon.className = 'fas fa-sun';
     }
     
     function enableDarkMode() {
         body.classList.remove('light-mode');
-        toggleIcon.className = 'fas fa-moon';
+        if (toggleIcon) toggleIcon.className = 'fas fa-moon';
     }
     
     // Smooth scrolling for navigation links with enhanced easing
@@ -239,7 +296,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 button.disabled = true;
                 
                 // Send data to server
-                fetch('/send-email', {
+                fetch(window.location.origin + '/send-email', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
@@ -321,7 +378,104 @@ document.addEventListener('DOMContentLoaded', () => {
     animateSkills(); // Trigger once on load
 });
 
-// Add CSS styles dynamically for particle effects
+// Add futuristic animations and interactive elements
+document.addEventListener('DOMContentLoaded', () => {
+    // Enable glitch effect for main title
+    const mainTitle = document.querySelector('.glow');
+    if (mainTitle) {
+        const titleText = mainTitle.textContent;
+        mainTitle.setAttribute('data-text', titleText);
+    }
+    
+    // Add 3D parallax effect on mouse move for the header
+    const header = document.querySelector('header');
+    if (header) {
+        document.addEventListener('mousemove', (e) => {
+            const x = e.clientX / window.innerWidth;
+            const y = e.clientY / window.innerHeight;
+            
+            header.style.transform = `perspective(1000px) rotateX(${y * 2 - 1}deg) rotateY(${-(x * 2 - 1)}deg)`;
+        });
+    }
+    
+    // Add interactive hover effects for project cards
+    document.querySelectorAll('.project-card').forEach(card => {
+        // Create shine effect element
+        const shine = document.createElement('div');
+        shine.classList.add('card-shine');
+        card.appendChild(shine);
+        
+        // Add interactive shine effect
+        card.addEventListener('mousemove', (e) => {
+            const rect = card.getBoundingClientRect();
+            const x = e.clientX - rect.left;
+            const y = e.clientY - rect.top;
+            
+            const centerX = rect.width / 2;
+            const centerY = rect.height / 2;
+            
+            const angleX = (centerY - y) / 10;
+            const angleY = (x - centerX) / 10;
+            
+            card.style.transform = `perspective(1000px) rotateX(${angleX}deg) rotateY(${angleY}deg) scale3d(1.05, 1.05, 1.05)`;
+            shine.style.background = `radial-gradient(circle at ${x}px ${y}px, rgba(255, 255, 255, 0.2) 0%, rgba(255, 255, 255, 0) 80%)`;
+        });
+        
+        card.addEventListener('mouseleave', () => {
+            card.style.transform = '';
+            shine.style.background = '';
+        });
+    });
+    
+    // Add typewriter effect to skills
+    const skillItems = document.querySelectorAll('.skill-item');
+    skillItems.forEach(item => {
+        const originalText = item.textContent;
+        item.innerHTML = '';
+        
+        const typeSkill = () => {
+            let i = 0;
+            const typing = setInterval(() => {
+                if (i < originalText.length) {
+                    item.innerHTML += originalText.charAt(i);
+                    i++;
+                } else {
+                    clearInterval(typing);
+                }
+            }, 50);
+        };
+        
+        const observer = new IntersectionObserver(entries => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    setTimeout(() => {
+                        typeSkill();
+                    }, Math.random() * 1000); // Random delay for each skill
+                    observer.unobserve(item);
+                }
+            });
+        }, { threshold: 0.5 });
+        
+        observer.observe(item);
+    });
+    
+    // Add cyberpunk-style cursor
+    const cursor = document.createElement('div');
+    cursor.classList.add('custom-cursor');
+    document.body.appendChild(cursor);
+    
+    document.addEventListener('mousemove', (e) => {
+        cursor.style.left = `${e.clientX}px`;
+        cursor.style.top = `${e.clientY}px`;
+    });
+    
+    document.addEventListener('mousedown', () => {
+        cursor.classList.add('clicked');
+        setTimeout(() => cursor.classList.remove('clicked'), 300);
+    });
+});
+
+// Add CSS styles dynamically for enhanced effects
 const style = document.createElement('style');
 style.textContent = `
 .particle {
@@ -396,6 +550,87 @@ nav a.active {
 
 .contact-form button.success {
     background: linear-gradient(90deg, #00aa00, #00dd00);
+}
+
+/* Futuristic enhancements */
+.card-shine {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border-radius: 15px;
+    pointer-events: none;
+}
+
+header {
+    transition: transform 0.3s ease-out;
+    transform-style: preserve-3d;
+}
+
+/* Custom cursor */
+.custom-cursor {
+    position: fixed;
+    width: 20px;
+    height: 20px;
+    border: 2px solid rgba(0, 255, 255, 0.5);
+    border-radius: 50%;
+    pointer-events: none;
+    transform: translate(-50%, -50%);
+    transition: width 0.3s, height 0.3s, background 0.3s;
+    z-index: 9999;
+    backdrop-filter: invert(0.2);
+}
+
+.custom-cursor::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 5px;
+    height: 5px;
+    background-color: cyan;
+    border-radius: 50%;
+}
+
+.custom-cursor.clicked {
+    width: 40px;
+    height: 40px;
+    border-color: rgba(0, 255, 255, 0.8);
+    background: rgba(0, 255, 255, 0.2);
+}
+
+.light-mode .custom-cursor {
+    border-color: rgba(0, 136, 255, 0.5);
+}
+
+.light-mode .custom-cursor::before {
+    background-color: #0088ff;
+}
+
+.light-mode .custom-cursor.clicked {
+    border-color: rgba(0, 136, 255, 0.8);
+    background: rgba(0, 136, 255, 0.2);
+}
+
+/* Hide default cursor on interactive elements */
+a, button, input, textarea, .project-card, .skill-item {
+    cursor: none;
+}
+
+@media (max-width: 768px) {
+    .custom-cursor {
+        display: none;
+    }
+    
+    a, button, input, textarea, .project-card, .skill-item {
+        cursor: auto;
+    }
+    
+    header {
+        transform: none !important;
+    }
 }
 `;
 document.head.appendChild(style);
