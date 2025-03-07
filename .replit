@@ -9,3 +9,7 @@ channel = "stable-23_11"
 publicDir = "/"
 deploymentTarget = "static"
 run = ["sh", "-c", "npm start"]
+
+[[ports]]
+localPort = 3000
+externalPort = 80
