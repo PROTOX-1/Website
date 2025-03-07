@@ -167,11 +167,12 @@
         <h2>Contact Me</h2>
         <p>Feel free to reach out for collaborations or just to say hello!</p>
         
-        <form class="contact-form">
-            <input type="text" placeholder="Your Name" required>
-            <input type="email" placeholder="Your Email" required>
-            <textarea rows="5" placeholder="Your Message" required></textarea>
+        <form class="contact-form" id="contactForm">
+            <input type="text" name="name" id="name" placeholder="Your Name" required>
+            <input type="email" name="email" id="email" placeholder="Your Email" required>
+            <textarea rows="5" name="message" id="message" placeholder="Your Message" required></textarea>
             <button type="submit">Send Message</button>
+            <div id="formStatus" class="form-status"></div>
         </form>
         
         <div class="social-links">

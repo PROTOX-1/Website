@@ -212,6 +212,7 @@ document.addEventListener('DOMContentLoaded', () => {
             // Validate form
             let valid = true;
             const inputs = contactForm.querySelectorAll('input, textarea');
+            const formStatus = document.getElementById('formStatus');
             
             inputs.forEach(input => {
                 if (!input.value.trim()) {
@@ -227,20 +228,57 @@ document.addEventListener('DOMContentLoaded', () => {
             });
             
             if (valid) {
+                // Get form data
+                const name = document.getElementById('name').value;
+                const email = document.getElementById('email').value;
+                const message = document.getElementById('message').value;
+                
                 // Success animation
                 const button = contactForm.querySelector('button');
-                button.innerHTML = '<i class="fas fa-check"></i> Sent!';
-                button.classList.add('success');
+                button.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Sending...';
+                button.disabled = true;
                 
-                // Reset form after delay
-                setTimeout(() => {
-                    contactForm.reset();
+                // Send data to server
+                fetch('/send-email', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ name, email, message }),
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        button.innerHTML = '<i class="fas fa-check"></i> Sent!';
+                        button.classList.add('success');
+                        formStatus.innerHTML = 'Message sent successfully!';
+                        formStatus.classList.add('success-message');
+                        
+                        // Reset form after delay
+                        setTimeout(() => {
+                            contactForm.reset();
+                            button.innerHTML = 'Send Message';
+                            button.classList.remove('success');
+                            button.disabled = false;
+                            formStatus.innerHTML = '';
+                            formStatus.classList.remove('success-message');
+                        }, 3000);
+                    } else {
+                        throw new Error(data.message || 'Failed to send message');
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
                     button.innerHTML = 'Send Message';
-                    button.classList.remove('success');
+                    button.disabled = false;
+                    formStatus.innerHTML = error.message || 'Failed to send message. Please try again.';
+                    formStatus.classList.add('error-message');
                     
-                    // Show success message
-                    alert('Thank you for your message! This form is currently in demo mode.');
-                }, 2000);
+                    setTimeout(() => {
+                        formStatus.innerHTML = '';
+                        formStatus.classList.remove('error-message');
+                    }, 5000);
+                });
             }
         });
     }
