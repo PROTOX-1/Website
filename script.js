@@ -1,4 +1,3 @@
-
 // Theme toggle functionality
 document.addEventListener('DOMContentLoaded', () => {
     const themeToggle = document.getElementById('theme-toggle');
@@ -239,7 +238,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 button.disabled = true;
                 
                 // Send data to server
-                fetch('/send-email', {
+                fetch('http://localhost:8080/send-email', { // Updated to include full backend URL
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
