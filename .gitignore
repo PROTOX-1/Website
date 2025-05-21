@@ -1,2 +1,14 @@
 node_modules/
 .env
+.vscode/
+.replit
+*.mojom-webui.js
+new_tab_page.js
+lazy_load.js
+shared.rollup.js
+strings.m.js
+colors.css
+shared_vars.css
+text_defaults_md.css
+resources/
+icons/
