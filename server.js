@@ -1,4 +1,4 @@
-require('dotenv').config();
+
 const express = require('express');
 const nodemailer = require('nodemailer');
 const bodyParser = require('body-parser');
@@ -21,34 +21,14 @@ const transporter = nodemailer.createTransport({
   }
 });
 
-// Test email route
-app.get('/test-email', (req, res) => {
-  const mailOptions = {
-    from: process.env.EMAIL_USER,
-    to: process.env.EMAIL_USER,
-    subject: 'Test Email',
-    text: 'This is a test email to verify the email configuration.',
-  };
-
-  transporter.sendMail(mailOptions, (error, info) => {
-    if (error) {
-      console.error('Error sending test email:', error);
-      return res.status(500).json({ success: false, message: 'Failed to send test email', error });
-    }
-
-    console.log('Test email sent:', info.response);
-    res.status(200).json({ success: true, message: 'Test email sent successfully!' });
-  });
-});
-
 // API endpoint for form submission
 app.post('/send-email', (req, res) => {
   const { name, email, message } = req.body;
-
+  
   if (!name || !email || !message) {
     return res.status(400).json({ success: false, message: 'Please fill all required fields' });
   }
-
+  
   const mailOptions = {
     from: email,
     to: process.env.EMAIL_USER, // Your email where you want to receive messages
@@ -56,19 +36,19 @@ app.post('/send-email', (req, res) => {
     text: `
       Name: ${name}
       Email: ${email}
-
+      
       Message:
       ${message}
     `,
-    replyTo: email,
+    replyTo: email
   };
-
+  
   transporter.sendMail(mailOptions, (error, info) => {
     if (error) {
       console.error('Error sending email:', error);
-      return res.status(500).json({ success: false, message: 'Failed to send email', error });
+      return res.status(500).json({ success: false, message: 'Failed to send email' });
     }
-
+    
     console.log('Email sent:', info.response);
     res.status(200).json({ success: true, message: 'Email sent successfully!' });
   });

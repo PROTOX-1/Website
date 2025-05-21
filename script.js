@@ -240,8 +240,13 @@ document.addEventListener('DOMContentLoaded', () => {
                 button.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Sending...';
                 button.disabled = true;
                 
+<<<<<<< HEAD
                 // Send data to Formspree
                 fetch('https://formspree.io/f/your-form-id', {
+=======
+                // Send data to server
+                fetch('http://localhost:8080/send-email', { // Updated to include full backend URL
+>>>>>>> ce4ab8c047c47f250132fb8af06139642105ce14
                     method: 'POST',
                     body: new FormData(contactForm),
                     headers: {
