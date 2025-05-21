@@ -96,7 +96,7 @@ nav a::before {
   left: 0;
   background-color: rgba(0, 255, 255, 0.2);
   transition: width 0.3s;
-  z-index: -1;
+ (£z-index: -1;
 }
 
 nav a:hover::before {
@@ -398,13 +398,13 @@ section::before {
   transition: all 0.3s ease;
 }
 
-.success-message {
+.form-status.success-message {
   background-color: rgba(0, 255, 0, 0.1);
   color: #00dd00;
   border-left: 3px solid #00dd00;
 }
 
-.error-message {
+.form-status.error-message {
   background-color: rgba(255, 0, 0, 0.1);
   color: #ff3333;
   border-left: 3px solid #ff3333;
@@ -728,6 +728,19 @@ footer::before {
 .about-text p {
   line-height: 1.8;
   margin-bottom: 15px;
+}
+
+/* Light mode form status */
+.light-mode .form-status.success-message {
+  background-color: rgba(0, 170, 0, 0.2);
+  color: #00aa00;
+  border-left: 3px solid #00aa00;
+}
+
+.light-mode .form-status.error-message {
+  background-color: rgba(255, 51, 51, 0.2);
+  color: #cc0000;
+  border-left: 3px solid #cc0000;
 }
 
 /* Responsive design */

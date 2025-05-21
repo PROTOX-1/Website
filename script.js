@@ -1,4 +1,3 @@
-
 // Theme toggle functionality
 document.addEventListener('DOMContentLoaded', () => {
     const themeToggle = document.getElementById('theme-toggle');
@@ -197,12 +196,6 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     };
     
-    // Listen for scroll events
-    window.addEventListener('scroll', () => {
-        animateOnScroll();
-        highlightActiveSection();
-    });
-    
     // Contact form submission with validation and animation
     const contactForm = document.querySelector('.contact-form');
     if (contactForm) {
@@ -211,7 +204,7 @@ document.addEventListener('DOMContentLoaded', () => {
             
             // Validate form
             let valid = true;
-            const inputs = contactForm.querySelectorAll('input, textarea');
+            const inputs = contactForm.querySelectorAll('input:not([name="_gotcha"]), textarea');
             const formStatus = document.getElementById('formStatus');
             
             inputs.forEach(input => {
@@ -223,32 +216,40 @@ document.addEventListener('DOMContentLoaded', () => {
                         if (this.value.trim()) {
                             this.classList.remove('error');
                         }
-                    });
+                    }, { once: true });
                 }
             });
             
-            if (valid) {
-                // Get form data
-                const name = document.getElementById('name').value;
-                const email = document.getElementById('email').value;
-                const message = document.getElementById('message').value;
+            // Validate email format
+            const email = document.getElementById('email').value;
+            if (!email.match(/^[^\s@]+@[^\s@]+\.[^\s@]+$/)) {
+                valid = false;
+                document.getElementById('email').classList.add('error');
+                formStatus.innerHTML = 'Please enter a valid email address.';
+                formStatus.classList.add('error-message');
                 
+                setTimeout(() => {
+                    formStatus.innerHTML = '';
+                    formStatus.classList.remove('error-message');
+                }, 5000);
+            }
+            
+            if (valid) {
                 // Success animation
                 const button = contactForm.querySelector('button');
                 button.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Sending...';
                 button.disabled = true;
                 
-                // Send data to server
-                fetch('/send-email', {
+                // Send data to Formspree
+                fetch('https://formspree.io/f/your-form-id', {
                     method: 'POST',
+                    body: new FormData(contactForm),
                     headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify({ name, email, message }),
+                        'Accept': 'application/json'
+                    }
                 })
-                .then(response => response.json())
-                .then(data => {
-                    if (data.success) {
+                .then(response => {
+                    if (response.ok) {
                         button.innerHTML = '<i class="fas fa-check"></i> Sent!';
                         button.classList.add('success');
                         formStatus.innerHTML = 'Message sent successfully!';
@@ -264,7 +265,7 @@ document.addEventListener('DOMContentLoaded', () => {
                             formStatus.classList.remove('success-message');
                         }, 3000);
                     } else {
-                        throw new Error(data.message || 'Failed to send message');
+                        throw new Error('Failed to send message');
                     }
                 })
                 .catch(error => {
@@ -282,6 +283,12 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
     }
+    
+    // Listen for scroll events
+    window.addEventListener('scroll', () => {
+        animateOnScroll();
+        highlightActiveSection();
+    });
     
     // Add active class to nav link for current section on load
     highlightActiveSection();
